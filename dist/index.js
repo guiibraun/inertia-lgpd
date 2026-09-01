@@ -1,10 +1,10 @@
-import { Fragment as e, computed as t, createCommentVNode as n, createElementBlock as r, createElementVNode as i, createTextVNode as a, defineComponent as o, inject as s, openBlock as c, provide as l, reactive as u, ref as d, renderList as f, renderSlot as p, toDisplayString as m, unref as h, vModelCheckbox as g, watch as _, withDirectives as v } from "vue";
-import { router as y, usePage as b } from "@inertiajs/vue3";
+import { Fragment as e, computed as t, createCommentVNode as n, createElementBlock as r, createElementVNode as i, createTextVNode as a, defineComponent as o, inject as s, normalizeStyle as c, openBlock as l, provide as u, reactive as d, ref as f, renderList as p, renderSlot as m, toDisplayString as h, unref as g, vModelCheckbox as _, watch as v, withDirectives as y } from "vue";
+import { router as b, usePage as x } from "@inertiajs/vue3";
 //#region src/consent.ts
-function x(e, t) {
+function S(e, t) {
 	return t?.choices[e] === !0;
 }
-function S(e, t, n = {}) {
+function C(e, t, n = {}) {
 	return Object.fromEntries(e.map((e) => {
 		if (e.is_required) return [e.slug, !0];
 		let r = {
@@ -17,9 +17,9 @@ function S(e, t, n = {}) {
 }
 //#endregion
 //#region src/cookiePreferences.ts
-var C = Symbol("cookie-preferences");
-function w() {
-	let e = d(!1);
+var w = Symbol("cookie-preferences");
+function T() {
+	let e = f(!1);
 	return {
 		preferencesOpen: e,
 		openPreferences() {
@@ -30,17 +30,40 @@ function w() {
 		}
 	};
 }
-function T(e = w()) {
-	return l(C, e), e;
+function E(e = T()) {
+	return u(w, e), e;
 }
-function E() {
-	return s(C) ?? w();
+function D() {
+	return s(w) ?? T();
+}
+//#endregion
+//#region src/types.ts
+var O = {
+	background: "#ffffff",
+	foreground: "#111827",
+	primary: "#2563eb",
+	primary_foreground: "#ffffff",
+	border: "#e5e7eb",
+	overlay: "#00000080"
+}, k = /^#(?:(?:[0-9a-f]{3}){1,2}|(?:[0-9a-f]{4}){1,2})$/i;
+function A(e, t) {
+	return typeof e == "string" && k.test(e) ? e : t;
+}
+function j(e) {
+	return {
+		background: A(e?.background, O.background),
+		foreground: A(e?.foreground, O.foreground),
+		primary: A(e?.primary, O.primary),
+		primary_foreground: A(e?.primary_foreground, O.primary_foreground),
+		border: A(e?.border, O.border),
+		overlay: A(e?.overlay, O.overlay)
+	};
 }
 //#endregion
 //#region src/useCookieConsent.ts
-function D(e = {}) {
-	let n = b(), r = e.preferences ?? E(), i = e.bannerProp ?? "cookieBanner", a = e.consentProp ?? "cookieConsent", o = t(() => n.props[i] ?? null), s = t(() => n.props[a] ?? null), c = t(() => o.value !== null && s.value?.bannerVersionId !== o.value.id), l = u({}), f = d(!1);
-	_([
+function M(e = {}) {
+	let n = x(), r = e.preferences ?? D(), i = e.bannerProp ?? "cookieBanner", a = e.consentProp ?? "cookieConsent", o = t(() => n.props[i] ?? null), s = t(() => n.props[a] ?? null), c = t(() => o.value !== null && s.value?.bannerVersionId !== o.value.id), l = d({}), u = f(!1);
+	v([
 		o,
 		s,
 		r.preferencesOpen
@@ -54,29 +77,29 @@ function D(e = {}) {
 	}
 	function m(t, n, i = {}) {
 		let s = o.value;
-		if (s === null || f.value) return;
-		f.value = !0;
-		let c = S(s.categories, t, i), l = {
+		if (s === null || u.value) return;
+		u.value = !0;
+		let c = C(s.categories, t, i), l = {
 			action: t,
 			banner_version_id: s.id,
 			source: n,
 			...t === "customize" ? { choices: c } : {}
-		}, u = {
+		}, d = {
 			preserveScroll: !0,
 			onStart: () => r.closePreferences(),
 			onFinish: () => {
-				f.value = !1;
+				u.value = !1;
 			}
 		};
 		if (e.optimistic === !1) {
-			y.post(p(), l, u);
+			b.post(p(), l, d);
 			return;
 		}
-		y.optimistic(() => ({ [a]: {
+		b.optimistic(() => ({ [a]: {
 			bannerVersionId: s.id,
 			action: t,
 			choices: c
-		} })).post(p(), l, u);
+		} })).post(p(), l, d);
 	}
 	function h() {
 		m("customize", "preferences", { ...l });
@@ -86,7 +109,7 @@ function D(e = {}) {
 		consent: s,
 		showBar: c,
 		categoryChoices: l,
-		processing: f,
+		processing: u,
 		preferencesOpen: r.preferencesOpen,
 		openPreferences: r.openPreferences,
 		closePreferences: r.closePreferences,
@@ -96,22 +119,19 @@ function D(e = {}) {
 }
 //#endregion
 //#region src/components/CookieConsentBanner.vue?vue&type=script&setup=true&lang.ts
-var O = {
-	key: 0,
-	class: "lgpd-cookie-consent"
-}, k = {
+var N = {
 	key: 0,
 	class: "lgpd-cookie-consent__bar",
 	role: "dialog",
 	"aria-labelledby": "lgpd-cookie-consent-title",
 	"aria-describedby": "lgpd-cookie-consent-description"
-}, A = { class: "lgpd-cookie-consent__bar-content" }, j = { id: "lgpd-cookie-consent-title" }, M = { id: "lgpd-cookie-consent-description" }, N = ["href"], P = { class: "lgpd-cookie-consent__actions" }, F = ["disabled"], I = ["disabled"], L = ["disabled"], R = {
+}, P = { class: "lgpd-cookie-consent__bar-content" }, F = { id: "lgpd-cookie-consent-title" }, I = { id: "lgpd-cookie-consent-description" }, L = ["href"], R = { class: "lgpd-cookie-consent__actions" }, z = ["disabled"], B = ["disabled"], V = ["disabled"], H = {
 	key: 1,
 	class: "lgpd-cookie-consent__preferences",
 	role: "dialog",
 	"aria-modal": "true",
 	"aria-labelledby": "lgpd-cookie-preferences-title"
-}, z = { class: "lgpd-cookie-consent__panel" }, B = ["aria-label"], V = { id: "lgpd-cookie-preferences-title" }, H = { class: "lgpd-cookie-consent__categories" }, U = ["onUpdate:modelValue", "disabled"], W = { class: "lgpd-cookie-consent__actions" }, G = ["disabled"], K = ["disabled"], q = /* @__PURE__ */ o({
+}, U = { class: "lgpd-cookie-consent__panel" }, W = ["aria-label"], G = { id: "lgpd-cookie-preferences-title" }, K = { class: "lgpd-cookie-consent__categories" }, q = ["onUpdate:modelValue", "disabled"], J = { class: "lgpd-cookie-consent__actions" }, Y = ["disabled"], X = ["disabled"], Z = /* @__PURE__ */ o({
 	__name: "CookieConsentBanner",
 	props: {
 		consentUrl: {
@@ -121,8 +141,8 @@ var O = {
 		cookiePolicyUrl: { default: "/cookies" },
 		labels: { default: () => ({}) }
 	},
-	setup(t) {
-		let o = t, s = {
+	setup(o) {
+		let s = o, u = {
 			close: "Close",
 			acceptAll: "Accept all",
 			rejectNonEssential: "Reject non-essential",
@@ -134,70 +154,84 @@ var O = {
 			emptyCategory: "No cookies are currently listed in this category.",
 			firstParty: "First-party",
 			thirdParty: "Third-party",
-			...o.labels
-		}, { banner: l, showBar: u, categoryChoices: d, processing: _, preferencesOpen: y, submit: b, saveCustom: x, openPreferences: S, closePreferences: C } = D({ consentUrl: o.consentUrl });
-		function w(e) {
-			b(e, y.value ? "preferences" : "banner");
+			...s.labels
+		}, { banner: d, showBar: f, categoryChoices: v, processing: b, preferencesOpen: x, submit: S, saveCustom: C, openPreferences: w, closePreferences: T } = M({ consentUrl: s.consentUrl }), E = t(() => {
+			let e = j(d.value?.colors);
+			return {
+				"--lgpd-cookie-background": e.background,
+				"--lgpd-cookie-foreground": e.foreground,
+				"--lgpd-cookie-primary": e.primary,
+				"--lgpd-cookie-primary-foreground": e.primary_foreground,
+				"--lgpd-cookie-border": e.border,
+				"--lgpd-cookie-overlay": e.overlay
+			};
+		});
+		function D(e) {
+			S(e, x.value ? "preferences" : "banner");
 		}
-		return (o, T) => h(l) ? (c(), r("div", O, [h(u) ? (c(), r("section", k, [i("div", A, [p(o.$slots, "banner", {
-			banner: h(l),
-			processing: h(_),
-			submit: h(b),
-			openPreferences: h(S)
-		}, () => [i("div", null, [i("h2", j, m(h(l).headline), 1), i("p", M, [a(m(h(l).body) + " ", 1), i("a", { href: t.cookiePolicyUrl }, m(s.policy), 9, N)])]), i("div", P, [
+		return (t, s) => g(d) ? (l(), r("div", {
+			key: 0,
+			class: "lgpd-cookie-consent",
+			style: c(E.value)
+		}, [g(f) ? (l(), r("section", N, [i("div", P, [m(t.$slots, "banner", {
+			banner: g(d),
+			processing: g(b),
+			submit: g(S),
+			openPreferences: g(w)
+		}, () => [i("div", null, [i("h2", F, h(g(d).headline), 1), i("p", I, [a(h(g(d).body) + " ", 1), i("a", { href: o.cookiePolicyUrl }, h(u.policy), 9, L)])]), i("div", R, [
 			i("button", {
 				type: "button",
-				disabled: h(_),
-				onClick: T[0] ||= (e) => w("reject_non_essential")
-			}, m(s.rejectNonEssential), 9, F),
+				disabled: g(b),
+				onClick: s[0] ||= (e) => D("reject_non_essential")
+			}, h(u.rejectNonEssential), 9, z),
 			i("button", {
 				type: "button",
-				disabled: h(_),
-				onClick: T[1] ||= (...e) => h(S) && h(S)(...e)
-			}, m(s.manage), 9, I),
+				disabled: g(b),
+				onClick: s[1] ||= (...e) => g(w) && g(w)(...e)
+			}, h(u.manage), 9, B),
 			i("button", {
 				type: "button",
-				disabled: h(_),
-				onClick: T[2] ||= (e) => w("accept_all")
-			}, m(s.acceptAll), 9, L)
-		])])])])) : n("", !0), h(y) ? (c(), r("div", R, [i("div", z, [
+				disabled: g(b),
+				onClick: s[2] ||= (e) => D("accept_all")
+			}, h(u.acceptAll), 9, V)
+		])])])])) : n("", !0), g(x) ? (l(), r("div", H, [i("div", U, [
 			i("button", {
 				class: "lgpd-cookie-consent__close",
 				type: "button",
-				"aria-label": s.close,
-				onClick: T[3] ||= (...e) => h(C) && h(C)(...e)
-			}, " × ", 8, B),
-			i("h2", V, m(s.preferencesTitle), 1),
-			i("p", null, m(s.preferencesDescription), 1),
-			i("div", H, [(c(!0), r(e, null, f(h(l).categories, (e) => (c(), r("div", {
+				"aria-label": u.close,
+				onClick: s[3] ||= (...e) => g(T) && g(T)(...e)
+			}, " × ", 8, W),
+			i("h2", G, h(u.preferencesTitle), 1),
+			i("p", null, h(u.preferencesDescription), 1),
+			i("div", K, [(l(!0), r(e, null, p(g(d).categories, (e) => (l(), r("div", {
 				key: e.slug,
 				class: "lgpd-cookie-consent__category"
-			}, [p(o.$slots, "category", {
+			}, [m(t.$slots, "category", {
 				category: e,
-				enabled: h(d)[e.slug] === !0
-			}, () => [i("label", null, [v(i("input", {
-				"onUpdate:modelValue": (t) => h(d)[e.slug] = t,
+				enabled: g(v)[e.slug] === !0
+			}, () => [i("label", null, [y(i("input", {
+				"onUpdate:modelValue": (t) => g(v)[e.slug] = t,
 				type: "checkbox",
-				disabled: e.is_required || h(_)
-			}, null, 8, U), [[g, h(d)[e.slug]]]), i("span", null, [i("strong", null, m(e.name), 1), i("small", null, m(e.description), 1)])])])]))), 128))]),
-			i("div", W, [i("button", {
+				disabled: e.is_required || g(b)
+			}, null, 8, q), [[_, g(v)[e.slug]]]), i("span", null, [i("strong", null, h(e.name), 1), i("small", null, h(e.description), 1)])])])]))), 128))]),
+			i("div", J, [i("button", {
 				type: "button",
-				disabled: h(_),
-				onClick: T[4] ||= (e) => w("reject_non_essential")
-			}, m(s.rejectNonEssential), 9, G), p(o.$slots, "preferencesFooter", {
-				saveCustom: h(x),
-				processing: h(_)
+				disabled: g(b),
+				onClick: s[4] ||= (e) => D("reject_non_essential")
+			}, h(u.rejectNonEssential), 9, Y), m(t.$slots, "preferencesFooter", {
+				saveCustom: g(C),
+				processing: g(b)
 			}, () => [i("button", {
 				type: "button",
-				disabled: h(_),
-				onClick: T[5] ||= (...e) => h(x) && h(x)(...e)
-			}, m(s.saveChoices), 9, K)])])
-		])])) : n("", !0)])) : n("", !0);
+				disabled: g(b),
+				onClick: s[5] ||= (...e) => g(C) && g(C)(...e)
+			}, h(u.saveChoices), 9, X)])])
+		])])) : n("", !0)], 4)) : n("", !0);
 	}
-}), J = { class: "lgpd-cookie-catalog" }, Y = { key: 0 }, X = {
+}), Q = { class: "lgpd-cookie-catalog" }, $ = { key: 0 }, ee = {
 	key: 1,
 	class: "lgpd-cookie-catalog__table-wrapper"
-}, Z = /* @__PURE__ */ o({
+}, te = /* @__PURE__ */ o({
 	__name: "CookiePolicyCatalog",
 	props: {
 		banner: {},
@@ -209,35 +243,35 @@ var O = {
 			firstParty: "First-party",
 			thirdParty: "Third-party",
 			...t.labels
-		}, { openPreferences: a } = E();
-		return (o, s) => (c(), r("section", J, [
-			i("p", null, m(t.banner.body), 1),
-			(c(!0), r(e, null, f(t.banner.categories, (t) => (c(), r("article", {
+		}, { openPreferences: a } = D();
+		return (o, s) => (l(), r("section", Q, [
+			i("p", null, h(t.banner.body), 1),
+			(l(!0), r(e, null, p(t.banner.categories, (t) => (l(), r("article", {
 				key: t.slug,
 				class: "lgpd-cookie-catalog__category"
 			}, [
-				i("h2", null, m(t.name), 1),
-				i("p", null, m(t.description), 1),
-				t.definitions.length === 0 ? (c(), r("p", Y, m(n.emptyCategory), 1)) : (c(), r("div", X, [i("table", null, [s[1] ||= i("thead", null, [i("tr", null, [
+				i("h2", null, h(t.name), 1),
+				i("p", null, h(t.description), 1),
+				t.definitions.length === 0 ? (l(), r("p", $, h(n.emptyCategory), 1)) : (l(), r("div", ee, [i("table", null, [s[1] ||= i("thead", null, [i("tr", null, [
 					i("th", null, "Name"),
 					i("th", null, "Provider"),
 					i("th", null, "Duration"),
 					i("th", null, "Type"),
 					i("th", null, "Purpose")
-				])], -1), i("tbody", null, [(c(!0), r(e, null, f(t.definitions, (e) => (c(), r("tr", { key: e.name }, [
-					i("td", null, m(e.name), 1),
-					i("td", null, m(e.provider), 1),
-					i("td", null, m(e.duration), 1),
-					i("td", null, m(e.is_first_party ? n.firstParty : n.thirdParty), 1),
-					i("td", null, m(e.purpose), 1)
+				])], -1), i("tbody", null, [(l(!0), r(e, null, p(t.definitions, (e) => (l(), r("tr", { key: e.name }, [
+					i("td", null, h(e.name), 1),
+					i("td", null, h(e.provider), 1),
+					i("td", null, h(e.duration), 1),
+					i("td", null, h(e.is_first_party ? n.firstParty : n.thirdParty), 1),
+					i("td", null, h(e.purpose), 1)
 				]))), 128))])])]))
 			]))), 128)),
 			i("button", {
 				type: "button",
-				onClick: s[0] ||= (...e) => h(a) && h(a)(...e)
+				onClick: s[0] ||= (...e) => g(a) && g(a)(...e)
 			}, "Manage cookies")
 		]));
 	}
 });
 //#endregion
-export { q as CookieConsentBanner, Z as CookiePolicyCatalog, x as allowsCookieCategory, w as createCookiePreferencesState, T as provideCookiePreferences, S as resolvedCookieChoices, D as useCookieConsent, E as useCookiePreferences };
+export { Z as CookieConsentBanner, te as CookiePolicyCatalog, O as DEFAULT_COOKIE_BANNER_COLORS, S as allowsCookieCategory, T as createCookiePreferencesState, E as provideCookiePreferences, j as resolveCookieBannerColors, C as resolvedCookieChoices, M as useCookieConsent, D as useCookiePreferences };

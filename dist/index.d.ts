@@ -4,6 +4,7 @@ export { createCookiePreferencesState, provideCookiePreferences, useCookiePrefer
 export { default as CookieConsentBanner } from './components/CookieConsentBanner.vue';
 export { default as CookiePolicyCatalog } from './components/CookiePolicyCatalog.vue';
 export { useCookieConsent } from './useCookieConsent';
-export type { CookieBanner, CookieCategory, CookieConsent, CookieConsentAction, CookieConsentLabels, CookieConsentPageProps, CookieConsentSource, CookieDefinition, PrivacyPolicy, } from './types';
+export { DEFAULT_COOKIE_BANNER_COLORS, resolveCookieBannerColors, } from './types';
+export type { CookieBanner, CookieBannerColors, CookieCategory, CookieConsent, CookieConsentAction, CookieConsentLabels, CookieConsentPageProps, CookieConsentSource, CookieDefinition, PrivacyPolicy, } from './types';
 export type { CookieConsentSubmit, CookieConsentUrl, UseCookieConsentOptions, } from './useCookieConsent';
 export type { CookiePreferencesState } from './cookiePreferences';

@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import type { CookieBanner, CookieConsentLabels } from '../types';
+import { resolveCookieBannerColors } from '../types';
 import { useCookieConsent } from '../useCookieConsent';
 import type {
     CookieConsentSubmit,
@@ -47,6 +49,19 @@ const {
     closePreferences,
 } = useCookieConsent({ consentUrl: props.consentUrl });
 
+const styleVariables = computed<Record<string, string>>(() => {
+    const colors = resolveCookieBannerColors(banner.value?.colors);
+
+    return {
+        '--lgpd-cookie-background': colors.background,
+        '--lgpd-cookie-foreground': colors.foreground,
+        '--lgpd-cookie-primary': colors.primary,
+        '--lgpd-cookie-primary-foreground': colors.primary_foreground,
+        '--lgpd-cookie-border': colors.border,
+        '--lgpd-cookie-overlay': colors.overlay,
+    };
+});
+
 function submitAction(action: 'accept_all' | 'reject_non_essential'): void {
     submit(action, preferencesOpen.value ? 'preferences' : 'banner');
 }
@@ -70,7 +85,7 @@ defineSlots<{
 </script>
 
 <template>
-    <div v-if="banner" class="lgpd-cookie-consent">
+    <div v-if="banner" class="lgpd-cookie-consent" :style="styleVariables">
         <section
             v-if="showBar"
             class="lgpd-cookie-consent__bar"

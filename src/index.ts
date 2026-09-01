@@ -9,8 +9,13 @@ export {
 export { default as CookieConsentBanner } from './components/CookieConsentBanner.vue';
 export { default as CookiePolicyCatalog } from './components/CookiePolicyCatalog.vue';
 export { useCookieConsent } from './useCookieConsent';
+export {
+    DEFAULT_COOKIE_BANNER_COLORS,
+    resolveCookieBannerColors,
+} from './types';
 export type {
     CookieBanner,
+    CookieBannerColors,
     CookieCategory,
     CookieConsent,
     CookieConsentAction,

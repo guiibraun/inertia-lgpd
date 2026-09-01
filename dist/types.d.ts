@@ -12,10 +12,21 @@ export type CookieCategory = {
     is_required: boolean;
     definitions: CookieDefinition[];
 };
+export type CookieBannerColors = {
+    background: string;
+    foreground: string;
+    primary: string;
+    primary_foreground: string;
+    border: string;
+    overlay: string;
+};
+export declare const DEFAULT_COOKIE_BANNER_COLORS: CookieBannerColors;
+export declare function resolveCookieBannerColors(colors: Partial<CookieBannerColors> | null | undefined): CookieBannerColors;
 export type CookieBanner = {
     id: number;
     headline: string;
     body: string;
+    colors?: Partial<CookieBannerColors> | null;
     categories: CookieCategory[];
 };
 export type CookieConsentAction = 'accept_all' | 'reject_non_essential' | 'customize';

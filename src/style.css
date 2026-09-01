@@ -1,3 +1,12 @@
+.lgpd-cookie-consent {
+    --lgpd-cookie-background: Canvas;
+    --lgpd-cookie-foreground: CanvasText;
+    --lgpd-cookie-primary: currentColor;
+    --lgpd-cookie-primary-foreground: Canvas;
+    --lgpd-cookie-border: currentColor;
+    --lgpd-cookie-overlay: rgb(0 0 0 / 50%);
+}
+
 .lgpd-cookie-consent__bar {
     position: fixed;
     right: 0;
@@ -5,10 +14,13 @@
     left: 0;
     z-index: 50;
     padding: 1rem;
-    background: Canvas;
-    border-block-start: 1px solid
-        color-mix(in srgb, CanvasText 20%, transparent);
-    color: CanvasText;
+    background: var(--lgpd-cookie-background);
+    border-block-start: 1px solid var(--lgpd-cookie-border);
+    color: var(--lgpd-cookie-foreground);
+}
+
+.lgpd-cookie-consent__bar a {
+    color: var(--lgpd-cookie-primary);
 }
 
 .lgpd-cookie-consent__bar-content,
@@ -36,11 +48,17 @@
 .lgpd-cookie-consent__actions button,
 .lgpd-cookie-catalog button {
     padding: 0.5rem 0.75rem;
-    border: 1px solid currentColor;
+    border: 1px solid var(--lgpd-cookie-primary, currentColor);
     border-radius: 0.25rem;
     background: transparent;
-    color: inherit;
+    color: var(--lgpd-cookie-primary, currentColor);
     cursor: pointer;
+}
+
+.lgpd-cookie-consent__actions button:hover:not(:disabled),
+.lgpd-cookie-catalog button:hover:not(:disabled) {
+    background: var(--lgpd-cookie-primary, currentColor);
+    color: var(--lgpd-cookie-primary-foreground, Canvas);
 }
 
 .lgpd-cookie-consent__actions button:disabled {
@@ -54,15 +72,16 @@
     z-index: 60;
     overflow: auto;
     padding: 1rem;
-    background: rgb(0 0 0 / 50%);
+    background: var(--lgpd-cookie-overlay);
 }
 
 .lgpd-cookie-consent__panel {
     position: relative;
     margin-block: 5vh;
     padding: 1.5rem;
-    background: Canvas;
-    color: CanvasText;
+    background: var(--lgpd-cookie-background);
+    border: 1px solid var(--lgpd-cookie-border);
+    color: var(--lgpd-cookie-foreground);
 }
 
 .lgpd-cookie-consent__close {
@@ -78,11 +97,15 @@
 
 .lgpd-cookie-consent__category {
     padding-block: 0.75rem;
-    border-block-end: 1px solid color-mix(in srgb, CanvasText 15%, transparent);
+    border-block-end: 1px solid var(--lgpd-cookie-border);
 }
 
 .lgpd-cookie-consent__category label {
     align-items: flex-start;
+}
+
+.lgpd-cookie-consent__category input[type='checkbox'] {
+    accent-color: var(--lgpd-cookie-primary);
 }
 
 .lgpd-cookie-consent__category small {
@@ -103,7 +126,7 @@
 .lgpd-cookie-catalog th,
 .lgpd-cookie-catalog td {
     padding: 0.75rem;
-    border-block-end: 1px solid color-mix(in srgb, CanvasText 15%, transparent);
+    border-block-end: 1px solid var(--lgpd-cookie-border, currentColor);
 }
 
 @media (max-width: 48rem) {
