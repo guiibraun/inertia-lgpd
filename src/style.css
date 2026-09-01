@@ -1,0 +1,114 @@
+.lgpd-cookie-consent__bar {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 50;
+    padding: 1rem;
+    background: Canvas;
+    border-block-start: 1px solid
+        color-mix(in srgb, CanvasText 20%, transparent);
+    color: CanvasText;
+}
+
+.lgpd-cookie-consent__bar-content,
+.lgpd-cookie-consent__panel {
+    width: min(100%, 72rem);
+    margin-inline: auto;
+}
+
+.lgpd-cookie-consent__bar-content,
+.lgpd-cookie-consent__actions,
+.lgpd-cookie-consent__category label {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.lgpd-cookie-consent__bar-content {
+    align-items: center;
+    justify-content: space-between;
+}
+
+.lgpd-cookie-consent__actions {
+    flex-wrap: wrap;
+}
+
+.lgpd-cookie-consent__actions button,
+.lgpd-cookie-catalog button {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid currentColor;
+    border-radius: 0.25rem;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+}
+
+.lgpd-cookie-consent__actions button:disabled {
+    cursor: wait;
+    opacity: 0.6;
+}
+
+.lgpd-cookie-consent__preferences {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    overflow: auto;
+    padding: 1rem;
+    background: rgb(0 0 0 / 50%);
+}
+
+.lgpd-cookie-consent__panel {
+    position: relative;
+    margin-block: 5vh;
+    padding: 1.5rem;
+    background: Canvas;
+    color: CanvasText;
+}
+
+.lgpd-cookie-consent__close {
+    position: absolute;
+    inset-block-start: 0.75rem;
+    inset-inline-end: 0.75rem;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.lgpd-cookie-consent__category {
+    padding-block: 0.75rem;
+    border-block-end: 1px solid color-mix(in srgb, CanvasText 15%, transparent);
+}
+
+.lgpd-cookie-consent__category label {
+    align-items: flex-start;
+}
+
+.lgpd-cookie-consent__category small {
+    display: block;
+    margin-block-start: 0.25rem;
+}
+
+.lgpd-cookie-catalog__table-wrapper {
+    overflow-x: auto;
+}
+
+.lgpd-cookie-catalog table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: start;
+}
+
+.lgpd-cookie-catalog th,
+.lgpd-cookie-catalog td {
+    padding: 0.75rem;
+    border-block-end: 1px solid color-mix(in srgb, CanvasText 15%, transparent);
+}
+
+@media (max-width: 48rem) {
+    .lgpd-cookie-consent__bar-content {
+        align-items: stretch;
+        flex-direction: column;
+    }
+}

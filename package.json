@@ -1,0 +1,54 @@
+{
+    "$schema": "https://json.schemastore.org/package.json",
+    "name": "@guiibraun/inertia-lgpd",
+    "version": "0.1.0",
+    "description": "Headless cookie consent composables and Vue components for Inertia.js v3.",
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/guiibraun/inertia-lgpd.git"
+    },
+    "keywords": [
+        "cookies",
+        "consent",
+        "lgpd",
+        "inertia",
+        "vue"
+    ],
+    "license": "MIT",
+    "type": "module",
+    "files": [
+        "dist",
+        "src"
+    ],
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js"
+        },
+        "./style.css": "./dist/style.css",
+        "./package.json": "./package.json"
+    },
+    "peerDependencies": {
+        "@inertiajs/vue3": "^3.0.0",
+        "vue": "^3.5.0"
+    },
+    "scripts": {
+        "build": "vite build && vue-tsc --declaration --emitDeclarationOnly --outDir dist",
+        "lint": "eslint src",
+        "typecheck": "vue-tsc --noEmit"
+    },
+    "devDependencies": {
+        "@inertiajs/vue3": "^3.0.0",
+        "@vitejs/plugin-vue": "^6.0.0",
+        "typescript": "^5.2.2",
+        "vite": "^8.0.0",
+        "vue": "^3.5.0",
+        "vue-tsc": "^2.2.4"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
+}
