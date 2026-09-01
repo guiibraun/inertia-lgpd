@@ -17,13 +17,13 @@ Este pacote é instalado diretamente do GitHub privado, não do npm registry:
 
 ```bash
 ssh -T git@github.com
-pnpm add "git+ssh://git@github.com/guiibraun/inertia-lgpd.git#v0.1.3"
+pnpm add "git+ssh://git@github.com/guiibraun/inertia-lgpd.git#v0.1.4"
 ```
 
 Com npm, use:
 
 ```bash
-npm install "git+ssh://git@github.com/guiibraun/inertia-lgpd.git#v0.1.3"
+npm install "git+ssh://git@github.com/guiibraun/inertia-lgpd.git#v0.1.4"
 ```
 
 Em CI ou produção, configure uma chave SSH com permissão de leitura no repositório. O pacote já inclui o diretório compilado `dist`, então não é necessário executar o build para consumi-lo.

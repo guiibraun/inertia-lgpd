@@ -101,7 +101,7 @@ defineSlots<{
                     :submit="submit"
                     :open-preferences="openPreferences"
                 >
-                    <div>
+                    <div class="lgpd-cookie-consent__copy">
                         <h2 id="lgpd-cookie-consent-title">
                             {{ banner.headline }}
                         </h2>
