@@ -22,18 +22,24 @@ const props = withDefaults(
 );
 
 const labels: CookieConsentLabels = {
-    close: 'Close',
-    acceptAll: 'Accept all',
-    rejectNonEssential: 'Reject non-essential',
-    manage: 'Manage preferences',
-    preferencesTitle: 'Cookie preferences',
+    close: 'Fechar',
+    acceptAll: 'Aceitar todos',
+    rejectNonEssential: 'Recusar não essenciais',
+    manage: 'Gerenciar preferências',
+    preferencesTitle: 'Preferências de cookies',
     preferencesDescription:
-        'Choose which cookie categories you allow. Necessary cookies are always active.',
-    saveChoices: 'Save choices',
-    policy: 'Cookie policy',
-    emptyCategory: 'No cookies are currently listed in this category.',
-    firstParty: 'First-party',
-    thirdParty: 'Third-party',
+        'Escolha quais categorias de cookies você permite. Os cookies necessários ficam sempre ativos.',
+    saveChoices: 'Salvar escolhas',
+    policy: 'Política de Cookies',
+    emptyCategory: 'Nenhum cookie está listado nesta categoria no momento.',
+    firstParty: 'Próprio',
+    thirdParty: 'Terceiro',
+    cookieName: 'Nome',
+    cookieProvider: 'Provedor',
+    cookieDuration: 'Duração',
+    cookieType: 'Tipo',
+    cookiePurpose: 'Finalidade',
+    manageCookies: 'Gerenciar cookies',
     ...props.labels,
 };
 

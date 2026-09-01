@@ -17,13 +17,13 @@ Este pacote é instalado diretamente do GitHub privado, não do npm registry:
 
 ```bash
 ssh -T git@github.com
-pnpm add "git+ssh://git@github.com/guiibraun/inertia-lgpd.git#v0.1.4"
+pnpm add "git+ssh://git@github.com/guiibraun/inertia-lgpd.git#v0.1.5"
 ```
 
 Com npm, use:
 
 ```bash
-npm install "git+ssh://git@github.com/guiibraun/inertia-lgpd.git#v0.1.4"
+npm install "git+ssh://git@github.com/guiibraun/inertia-lgpd.git#v0.1.5"
 ```
 
 Em CI ou produção, configure uma chave SSH com permissão de leitura no repositório. O pacote já inclui o diretório compilado `dist`, então não é necessário executar o build para consumi-lo.
@@ -79,6 +79,8 @@ provideCookiePreferences();
 ```
 
 O componente lê `cookieBanner` e `cookieConsent` do `usePage()` do Inertia, mantém categorias necessárias sempre ativas e envia as escolhas ao endpoint informado.
+
+Os textos padrão do componente estão em português do Brasil. Use a prop `labels` quando precisar adaptar o idioma ou algum texto da interface.
 
 O `provideCookiePreferences()` permite que o banner e outros componentes, como `CookiePolicyCatalog`, compartilhem o estado de abertura do painel de preferências.
 

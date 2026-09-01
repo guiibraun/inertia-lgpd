@@ -8,7 +8,15 @@ const props = withDefaults(
         labels?: Partial<
             Pick<
                 CookieConsentLabels,
-                'emptyCategory' | 'firstParty' | 'thirdParty'
+                | 'emptyCategory'
+                | 'firstParty'
+                | 'thirdParty'
+                | 'cookieName'
+                | 'cookieProvider'
+                | 'cookieDuration'
+                | 'cookieType'
+                | 'cookiePurpose'
+                | 'manageCookies'
             >
         >;
     }>(),
@@ -18,9 +26,15 @@ const props = withDefaults(
 );
 
 const labels = {
-    emptyCategory: 'No cookies are currently listed in this category.',
-    firstParty: 'First-party',
-    thirdParty: 'Third-party',
+    emptyCategory: 'Nenhum cookie está listado nesta categoria no momento.',
+    firstParty: 'Próprio',
+    thirdParty: 'Terceiro',
+    cookieName: 'Nome',
+    cookieProvider: 'Provedor',
+    cookieDuration: 'Duração',
+    cookieType: 'Tipo',
+    cookiePurpose: 'Finalidade',
+    manageCookies: 'Gerenciar cookies',
     ...props.labels,
 };
 
@@ -46,11 +60,11 @@ const { openPreferences } = useCookiePreferences();
                 <table>
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Provider</th>
-                            <th>Duration</th>
-                            <th>Type</th>
-                            <th>Purpose</th>
+                            <th>{{ labels.cookieName }}</th>
+                            <th>{{ labels.cookieProvider }}</th>
+                            <th>{{ labels.cookieDuration }}</th>
+                            <th>{{ labels.cookieType }}</th>
+                            <th>{{ labels.cookiePurpose }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -75,6 +89,8 @@ const { openPreferences } = useCookiePreferences();
             </div>
         </article>
 
-        <button type="button" @click="openPreferences">Manage cookies</button>
+        <button type="button" @click="openPreferences">
+            {{ labels.manageCookies }}
+        </button>
     </section>
 </template>

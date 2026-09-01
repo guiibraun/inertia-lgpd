@@ -25,6 +25,7 @@
 
 .lgpd-cookie-consent__bar-content {
     width: 100%;
+    gap: 2rem;
 }
 
 .lgpd-cookie-consent__panel {
@@ -47,6 +48,18 @@
 .lgpd-cookie-consent__copy {
     min-width: 0;
     flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+}
+
+.lgpd-cookie-consent__copy h2,
+.lgpd-cookie-consent__copy p {
+    margin: 0;
+}
+
+.lgpd-cookie-consent__copy p {
+    line-height: 1.5;
 }
 
 .lgpd-cookie-consent__actions {
@@ -148,6 +161,7 @@
     .lgpd-cookie-consent__bar-content {
         align-items: stretch;
         flex-direction: column;
+        gap: 1rem;
     }
 
     .lgpd-cookie-consent__copy,

@@ -71,4 +71,10 @@ export type CookieConsentLabels = {
     emptyCategory: string;
     firstParty: string;
     thirdParty: string;
+    cookieName: string;
+    cookieProvider: string;
+    cookieDuration: string;
+    cookieType: string;
+    cookiePurpose: string;
+    manageCookies: string;
 };

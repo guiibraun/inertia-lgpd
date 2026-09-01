@@ -143,17 +143,23 @@ var ee = {
 	},
 	setup(o) {
 		let s = o, l = {
-			close: "Close",
-			acceptAll: "Accept all",
-			rejectNonEssential: "Reject non-essential",
-			manage: "Manage preferences",
-			preferencesTitle: "Cookie preferences",
-			preferencesDescription: "Choose which cookie categories you allow. Necessary cookies are always active.",
-			saveChoices: "Save choices",
-			policy: "Cookie policy",
-			emptyCategory: "No cookies are currently listed in this category.",
-			firstParty: "First-party",
-			thirdParty: "Third-party",
+			close: "Fechar",
+			acceptAll: "Aceitar todos",
+			rejectNonEssential: "Recusar não essenciais",
+			manage: "Gerenciar preferências",
+			preferencesTitle: "Preferências de cookies",
+			preferencesDescription: "Escolha quais categorias de cookies você permite. Os cookies necessários ficam sempre ativos.",
+			saveChoices: "Salvar escolhas",
+			policy: "Política de Cookies",
+			emptyCategory: "Nenhum cookie está listado nesta categoria no momento.",
+			firstParty: "Próprio",
+			thirdParty: "Terceiro",
+			cookieName: "Nome",
+			cookieProvider: "Provedor",
+			cookieDuration: "Duração",
+			cookieType: "Tipo",
+			cookiePurpose: "Finalidade",
+			manageCookies: "Gerenciar cookies",
 			...s.labels
 		}, { banner: d, showBar: f, categoryChoices: p, processing: y, preferencesOpen: x, submit: S, saveCustom: C, openPreferences: w, closePreferences: T } = N({ consentUrl: s.consentUrl }), E = t(() => {
 			let e = M(d.value?.colors);
@@ -239,9 +245,15 @@ var ee = {
 	},
 	setup(t) {
 		let n = {
-			emptyCategory: "No cookies are currently listed in this category.",
-			firstParty: "First-party",
-			thirdParty: "Third-party",
+			emptyCategory: "Nenhum cookie está listado nesta categoria no momento.",
+			firstParty: "Próprio",
+			thirdParty: "Terceiro",
+			cookieName: "Nome",
+			cookieProvider: "Provedor",
+			cookieDuration: "Duração",
+			cookieType: "Tipo",
+			cookiePurpose: "Finalidade",
+			manageCookies: "Gerenciar cookies",
 			...t.labels
 		}, { openPreferences: a } = O();
 		return (o, s) => (u(), r("section", ne, [
@@ -252,13 +264,13 @@ var ee = {
 			}, [
 				i("h2", null, g(t.name), 1),
 				i("p", null, g(t.description), 1),
-				t.definitions.length === 0 ? (u(), r("p", re, g(n.emptyCategory), 1)) : (u(), r("div", ie, [i("table", null, [s[1] ||= i("thead", null, [i("tr", null, [
-					i("th", null, "Name"),
-					i("th", null, "Provider"),
-					i("th", null, "Duration"),
-					i("th", null, "Type"),
-					i("th", null, "Purpose")
-				])], -1), i("tbody", null, [(u(!0), r(e, null, m(t.definitions, (e) => (u(), r("tr", { key: e.name }, [
+				t.definitions.length === 0 ? (u(), r("p", re, g(n.emptyCategory), 1)) : (u(), r("div", ie, [i("table", null, [i("thead", null, [i("tr", null, [
+					i("th", null, g(n.cookieName), 1),
+					i("th", null, g(n.cookieProvider), 1),
+					i("th", null, g(n.cookieDuration), 1),
+					i("th", null, g(n.cookieType), 1),
+					i("th", null, g(n.cookiePurpose), 1)
+				])]), i("tbody", null, [(u(!0), r(e, null, m(t.definitions, (e) => (u(), r("tr", { key: e.name }, [
 					i("td", null, g(e.name), 1),
 					i("td", null, g(e.provider), 1),
 					i("td", null, g(e.duration), 1),
@@ -269,7 +281,7 @@ var ee = {
 			i("button", {
 				type: "button",
 				onClick: s[0] ||= (...e) => _(a) && _(a)(...e)
-			}, "Manage cookies")
+			}, g(n.manageCookies), 1)
 		]));
 	}
 }), Q = "script[data-lgpd-cookie-script-id]", oe = "body_start";
