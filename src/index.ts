@@ -8,7 +8,9 @@ export {
 } from './cookiePreferences';
 export { default as CookieConsentBanner } from './components/CookieConsentBanner.vue';
 export { default as CookiePolicyCatalog } from './components/CookiePolicyCatalog.vue';
+export { default as CookieScriptLoader } from './components/CookieScriptLoader.vue';
 export { useCookieConsent } from './useCookieConsent';
+export { useCookieScripts } from './useCookieScripts';
 export {
     DEFAULT_COOKIE_BANNER_COLORS,
     resolveCookieBannerColors,
@@ -23,6 +25,9 @@ export type {
     CookieConsentPageProps,
     CookieConsentSource,
     CookieDefinition,
+    CookieScript,
+    CookieScriptPosition,
+    CookieScriptSourceType,
     PrivacyPolicy,
 } from './types';
 export type {
@@ -31,3 +36,7 @@ export type {
     UseCookieConsentOptions,
 } from './useCookieConsent';
 export type { CookiePreferencesState } from './cookiePreferences';
+export type {
+    CookieScriptLoaderState,
+    UseCookieScriptsOptions,
+} from './useCookieScripts';

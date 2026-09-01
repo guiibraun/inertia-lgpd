@@ -12,6 +12,21 @@ export type CookieCategory = {
     is_required: boolean;
     definitions: CookieDefinition[];
 };
+export type CookieScriptPosition = 'head' | 'body_start' | 'body_end';
+export type CookieScriptSourceType = 'external' | 'inline';
+export type CookieScript = {
+    id: number;
+    name: string;
+    provider: string;
+    purpose: string;
+    category: string;
+    is_required: boolean;
+    position: CookieScriptPosition;
+    source_type: CookieScriptSourceType;
+    src?: string | null;
+    code?: string | null;
+    sort_order: number;
+};
 export type CookieBannerColors = {
     background: string;
     foreground: string;
@@ -28,6 +43,7 @@ export type CookieBanner = {
     body: string;
     colors?: Partial<CookieBannerColors> | null;
     categories: CookieCategory[];
+    scripts?: CookieScript[] | null;
 };
 export type CookieConsentAction = 'accept_all' | 'reject_non_essential' | 'customize';
 export type CookieConsentSource = 'banner' | 'preferences';

@@ -17,13 +17,13 @@ Este pacote é instalado diretamente do GitHub privado, não do npm registry:
 
 ```bash
 ssh -T git@github.com
-pnpm add "git+ssh://git@github.com/guiibraun/inertia-lgpd.git#v0.1.1"
+pnpm add "git+ssh://git@github.com/guiibraun/inertia-lgpd.git#v0.1.2"
 ```
 
 Com npm, use:
 
 ```bash
-npm install "git+ssh://git@github.com/guiibraun/inertia-lgpd.git#v0.1.1"
+npm install "git+ssh://git@github.com/guiibraun/inertia-lgpd.git#v0.1.2"
 ```
 
 Em CI ou produção, configure uma chave SSH com permissão de leitura no repositório. O pacote já inclui o diretório compilado `dist`, então não é necessário executar o build para consumi-lo.
@@ -39,7 +39,7 @@ type CookiePageProps = {
 };
 ```
 
-O banner possui `id`, `headline`, `body`, `colors` e `categories`. Cada categoria possui `slug`, `name`, `description`, `is_required` e suas definições. O consentimento possui `bannerVersionId`, `action` e `choices`.
+O banner possui `id`, `headline`, `body`, `colors`, `categories` e, opcionalmente, `scripts`. Cada categoria possui `slug`, `name`, `description`, `is_required` e suas definições. O consentimento possui `bannerVersionId`, `action` e `choices`.
 
 O endpoint padrão para salvar a preferência é `/cookies/consent`. Se o backend usar outro caminho, informe `consentUrl` no componente ou no composable.
 
@@ -51,6 +51,7 @@ Monte o banner uma única vez em um layout persistente. O CSS precisa ser import
 <script setup lang="ts">
 import {
   CookieConsentBanner,
+  CookieScriptLoader,
   provideCookiePreferences,
 } from "@guiibraun/inertia-lgpd";
 import "@guiibraun/inertia-lgpd/style.css";
@@ -72,6 +73,7 @@ provideCookiePreferences();
         saveChoices: 'Salvar escolhas',
       }"
     />
+    <CookieScriptLoader />
   </div>
 </template>
 ```
@@ -79,6 +81,8 @@ provideCookiePreferences();
 O componente lê `cookieBanner` e `cookieConsent` do `usePage()` do Inertia, mantém categorias necessárias sempre ativas e envia as escolhas ao endpoint informado.
 
 O `provideCookiePreferences()` permite que o banner e outros componentes, como `CookiePolicyCatalog`, compartilhem o estado de abertura do painel de preferências.
+
+O `CookieScriptLoader` deve ser montado uma vez em cada layout persistente que possa exibir o banner. Ele observa os props do Inertia e atualiza os scripts quando o consentimento muda.
 
 ## Catálogo de cookies
 
@@ -142,15 +146,46 @@ Os estilos incluídos usam classes com o prefixo `lgpd-cookie-`. Eles são inten
 
 ## Integração com scripts de terceiros
 
-O pacote registra a escolha e fornece o estado; ele não injeta nem bloqueia automaticamente scripts de analytics, marketing ou pixels. A aplicação deve carregar cada integração somente quando a categoria correspondente estiver autorizada, por exemplo:
+O backend Filament cadastra scripts por categoria e os inclui no snapshot da versão publicada. O `CookieScriptLoader` injeta esses scripts no navegador somente quando a categoria correspondente estiver autorizada:
 
-```ts
-import { allowsCookieCategory } from "@guiibraun/inertia-lgpd";
+```vue
+<script setup lang="ts">
+import {
+  CookieConsentBanner,
+  CookieScriptLoader,
+  provideCookiePreferences,
+} from "@guiibraun/inertia-lgpd";
 
-if (allowsCookieCategory("analytics", consent.value)) {
-  // Carregue o provedor de analytics depois do consentimento.
-}
+provideCookiePreferences();
+</script>
+
+<template>
+  <div>
+    <slot />
+    <CookieConsentBanner />
+    <CookieScriptLoader />
+  </div>
+</template>
 ```
+
+Cada script tem `category`, `is_required`, `position`, `source_type`, `src` ou `code`. As posições disponíveis são `head`, `body_start` e `body_end`. O loader usa elementos DOM criados via API, não injeta HTML arbitrário nem executa scripts durante o SSR.
+
+Com uma interface própria, monte apenas o loader junto ao composable existente:
+
+```vue
+<script setup lang="ts">
+import { CookieScriptLoader } from "@guiibraun/inertia-lgpd";
+</script>
+
+<template>
+  <div>
+    <!-- Seu banner usa useCookieConsent() -->
+    <CookieScriptLoader />
+  </div>
+</template>
+```
+
+`allowsCookieCategory(category, consent)` permanece disponível para integrações que precisem de comportamento adicional. Ao revogar uma categoria, o loader remove os elementos que ele criou e impede novos carregamentos; ele não consegue desfazer cookies ou efeitos que um provedor já tenha produzido.
 
 ## LGPD
 
