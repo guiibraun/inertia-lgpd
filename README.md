@@ -2,31 +2,29 @@
 
 Composables, componentes Vue e tipos TypeScript para implementar consentimento de cookies em aplicações Inertia.js v3.
 
-O pacote é privado no GitHub e foi desenhado para trabalhar com o backend [`guiibraun/laravel-filament-lgpd`](https://github.com/guiibraun/laravel-filament-lgpd), mas pode ser usado com qualquer backend que forneça os mesmos props e endpoint.
+O repositório é público e foi desenhado para trabalhar com o backend [`guiibraun/laravel-filament-lgpd`](https://github.com/guiibraun/laravel-filament-lgpd), mas pode ser usado com qualquer backend que forneça os mesmos props e endpoint.
 
 ## Requisitos
 
 - Vue 3.5 ou superior;
 - `@inertiajs/vue3` 3 ou superior;
-- uma aplicação Inertia.js v3 com Vite;
-- acesso SSH de leitura ao GitHub para `git@github.com:guiibraun/inertia-lgpd.git`.
+- uma aplicação Inertia.js v3 com Vite.
 
 ## Instalação
 
-Este pacote é instalado diretamente do GitHub privado, não do npm registry:
+Instale o tarball da release (já compilado). Não use a URL git do repositório: o pnpm trata pacotes git como se precisassem de `build`, e hosts com `ignore-scripts=true` (Coolify/Railpack) ficam só com o source.
 
 ```bash
-ssh -T git@github.com
-pnpm add "git+ssh://git@github.com/guiibraun/inertia-lgpd.git#v0.1.5"
+pnpm add "https://github.com/guiibraun/inertia-lgpd/releases/download/v0.1.6/guiibraun-inertia-lgpd-0.1.6.tgz"
 ```
 
-Com npm, use:
+Com npm:
 
 ```bash
-npm install "git+ssh://git@github.com/guiibraun/inertia-lgpd.git#v0.1.5"
+npm install "https://github.com/guiibraun/inertia-lgpd/releases/download/v0.1.6/guiibraun-inertia-lgpd-0.1.6.tgz"
 ```
 
-Em CI ou produção, configure uma chave SSH com permissão de leitura no repositório. O pacote já inclui o diretório compilado `dist`, então não é necessário executar o build para consumi-lo.
+O tarball contém só `dist`. Não é necessário executar o build do pacote no consumidor.
 
 ## Pré-requisito do backend
 
