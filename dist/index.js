@@ -59,7 +59,7 @@ function A(e) {
 }
 // src/useCookieConsent.ts
 function j(e = {}) {
-	let n = x(), r = e.preferences ?? D(), i = e.bannerProp ?? "cookieBanner", a = e.consentProp ?? "cookieConsent", o = t(() => n.props[i] ?? null), s = t(() => n.props[a] ?? null), c = t(() => o.value !== null && s.value?.bannerVersionId !== o.value.id), l = f({}), u = p(!1);
+	let n = x(), r = e.preferences ?? D(), i = e.bannerProp ?? "cookieBanner", a = e.consentProp ?? "cookieConsent", o = t(() => n.props?.[i] ?? null), s = t(() => n.props?.[a] ?? null), c = t(() => o.value !== null && s.value?.bannerVersionId !== o.value.id), l = f({}), u = p(!1);
 	y([
 		o,
 		s,
@@ -272,10 +272,8 @@ var ne = {
 		}, { openPreferences: s } = D(), l = t(() => {
 			let e = A(a.banner.colors);
 			return {
-				"--lgpd-cookie-foreground": e.foreground,
 				"--lgpd-cookie-primary": e.primary,
-				"--lgpd-cookie-primary-foreground": e.primary_foreground,
-				"--lgpd-cookie-border": e.border
+				"--lgpd-cookie-primary-foreground": e.primary_foreground
 			};
 		});
 		return (t, a) => (u(), r("section", {
@@ -312,7 +310,7 @@ var ne = {
 	}
 }), Q = "script[data-lgpd-cookie-script-id]", pe = "body_start";
 function $(e = {}) {
-	let n = x(), r = p(!1), i = e.bannerProp ?? "cookieBanner", a = e.consentProp ?? "cookieConsent", o = t(() => n.props[i] ?? null), s = t(() => n.props[a] ?? null), c = t(() => o.value?.scripts ?? []);
+	let n = x(), r = p(!1), i = e.bannerProp ?? "cookieBanner", a = e.consentProp ?? "cookieConsent", o = t(() => n.props?.[i] ?? null), s = t(() => n.props?.[a] ?? null), c = t(() => o.value?.scripts ?? []);
 	function u(e) {
 		return e.is_required || S(e.category, s.value);
 	}

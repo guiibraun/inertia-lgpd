@@ -46,13 +46,13 @@ export function useCookieConsent(options: UseCookieConsentOptions = {}): {
 
     const banner = computed<CookieBanner | null>(() => {
         return (
-            (page.props[bannerProp] as CookieBanner | null | undefined) ?? null
+            (page.props?.[bannerProp] as CookieBanner | null | undefined) ?? null
         );
     });
 
     const consent = computed<CookieConsent | null>(() => {
         return (
-            (page.props[consentProp] as CookieConsent | null | undefined) ??
+            (page.props?.[consentProp] as CookieConsent | null | undefined) ??
             null
         );
     });

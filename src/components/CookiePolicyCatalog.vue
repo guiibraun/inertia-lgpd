@@ -46,10 +46,8 @@ const styleVariables = computed<Record<string, string>>(() => {
     const colors = resolveCookieBannerColors(props.banner.colors);
 
     return {
-        '--lgpd-cookie-foreground': colors.foreground,
         '--lgpd-cookie-primary': colors.primary,
         '--lgpd-cookie-primary-foreground': colors.primary_foreground,
-        '--lgpd-cookie-border': colors.border,
     };
 });
 </script>

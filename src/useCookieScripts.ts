@@ -29,14 +29,14 @@ export function useCookieScripts(
 
     const banner = computed<CookieBanner | null>(() => {
         return (
-            (page.props[bannerProp] as CookieBanner | null | undefined) ??
+            (page.props?.[bannerProp] as CookieBanner | null | undefined) ??
             null
         );
     });
 
     const consent = computed<CookieConsent | null>(() => {
         return (
-            (page.props[consentProp] as CookieConsent | null | undefined) ??
+            (page.props?.[consentProp] as CookieConsent | null | undefined) ??
             null
         );
     });
