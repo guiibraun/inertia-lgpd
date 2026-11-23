@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import { useCookiePreferences } from '../cookiePreferences';
 import type { CookieBanner, CookieConsentLabels } from '../types';
+import { resolveCookieBannerColors } from '../types';
 
 const props = withDefaults(
     defineProps<{
@@ -39,11 +41,22 @@ const labels = {
 };
 
 const { openPreferences } = useCookiePreferences();
+
+const styleVariables = computed<Record<string, string>>(() => {
+    const colors = resolveCookieBannerColors(props.banner.colors);
+
+    return {
+        '--lgpd-cookie-foreground': colors.foreground,
+        '--lgpd-cookie-primary': colors.primary,
+        '--lgpd-cookie-primary-foreground': colors.primary_foreground,
+        '--lgpd-cookie-border': colors.border,
+    };
+});
 </script>
 
 <template>
-    <section class="lgpd-cookie-catalog">
-        <p>{{ banner.body }}</p>
+    <section class="lgpd-cookie-catalog" :style="styleVariables">
+        <p class="lgpd-cookie-catalog__intro">{{ banner.body }}</p>
 
         <article
             v-for="category in banner.categories"
@@ -53,7 +66,10 @@ const { openPreferences } = useCookiePreferences();
             <h2>{{ category.name }}</h2>
             <p>{{ category.description }}</p>
 
-            <p v-if="category.definitions.length === 0">
+            <p
+                v-if="category.definitions.length === 0"
+                class="lgpd-cookie-catalog__empty"
+            >
                 {{ labels.emptyCategory }}
             </p>
             <div v-else class="lgpd-cookie-catalog__table-wrapper">
@@ -72,24 +88,36 @@ const { openPreferences } = useCookiePreferences();
                             v-for="definition in category.definitions"
                             :key="definition.name"
                         >
-                            <td>{{ definition.name }}</td>
-                            <td>{{ definition.provider }}</td>
-                            <td>{{ definition.duration }}</td>
-                            <td>
+                            <td :data-label="labels.cookieName">
+                                <code>{{ definition.name }}</code>
+                            </td>
+                            <td :data-label="labels.cookieProvider">
+                                {{ definition.provider }}
+                            </td>
+                            <td :data-label="labels.cookieDuration">
+                                {{ definition.duration }}
+                            </td>
+                            <td :data-label="labels.cookieType">
                                 {{
                                     definition.is_first_party
                                         ? labels.firstParty
                                         : labels.thirdParty
                                 }}
                             </td>
-                            <td>{{ definition.purpose }}</td>
+                            <td :data-label="labels.cookiePurpose">
+                                {{ definition.purpose }}
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </article>
 
-        <button type="button" @click="openPreferences">
+        <button
+            type="button"
+            class="lgpd-cookie-button lgpd-cookie-button--primary"
+            @click="openPreferences"
+        >
             {{ labels.manageCookies }}
         </button>
     </section>

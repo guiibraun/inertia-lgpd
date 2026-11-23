@@ -15,13 +15,13 @@ O repositório é público e foi desenhado para trabalhar com o backend [`guiibr
 Instale o tarball da release (já compilado). Não use a URL git do repositório: o pnpm trata pacotes git como se precisassem de `build`, e hosts com `ignore-scripts=true` (Coolify/Railpack) ficam só com o source.
 
 ```bash
-pnpm add "https://github.com/guiibraun/inertia-lgpd/releases/download/v0.1.6/guiibraun-inertia-lgpd-0.1.6.tgz"
+pnpm add "https://github.com/guiibraun/inertia-lgpd/releases/download/v0.1.7/guiibraun-inertia-lgpd-0.1.7.tgz"
 ```
 
 Com npm:
 
 ```bash
-npm install "https://github.com/guiibraun/inertia-lgpd/releases/download/v0.1.6/guiibraun-inertia-lgpd-0.1.6.tgz"
+npm install "https://github.com/guiibraun/inertia-lgpd/releases/download/v0.1.7/guiibraun-inertia-lgpd-0.1.7.tgz"
 ```
 
 O tarball contém só `dist`. Não é necessário executar o build do pacote no consumidor.

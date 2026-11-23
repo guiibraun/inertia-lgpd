@@ -126,6 +126,7 @@ export type CookieConsentLabels = {
     preferencesTitle: string;
     preferencesDescription: string;
     saveChoices: string;
+    alwaysActive: string;
     policy: string;
     emptyCategory: string;
     firstParty: string;

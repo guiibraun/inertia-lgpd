@@ -30,6 +30,7 @@ const labels: CookieConsentLabels = {
     preferencesDescription:
         'Escolha quais categorias de cookies você permite. Os cookies necessários ficam sempre ativos.',
     saveChoices: 'Salvar escolhas',
+    alwaysActive: 'Sempre ativos',
     policy: 'Política de Cookies',
     emptyCategory: 'Nenhum cookie está listado nesta categoria no momento.',
     firstParty: 'Próprio',
@@ -93,7 +94,7 @@ defineSlots<{
 <template>
     <div v-if="banner" class="lgpd-cookie-consent" :style="styleVariables">
         <section
-            v-if="showBar"
+            v-if="showBar && !preferencesOpen"
             class="lgpd-cookie-consent__bar"
             role="dialog"
             aria-labelledby="lgpd-cookie-consent-title"
@@ -120,13 +121,7 @@ defineSlots<{
                     <div class="lgpd-cookie-consent__actions">
                         <button
                             type="button"
-                            :disabled="processing"
-                            @click="submitAction('reject_non_essential')"
-                        >
-                            {{ labels.rejectNonEssential }}
-                        </button>
-                        <button
-                            type="button"
+                            class="lgpd-cookie-button lgpd-cookie-button--ghost lgpd-cookie-consent__manage"
                             :disabled="processing"
                             @click="openPreferences"
                         >
@@ -134,6 +129,15 @@ defineSlots<{
                         </button>
                         <button
                             type="button"
+                            class="lgpd-cookie-button lgpd-cookie-button--outline"
+                            :disabled="processing"
+                            @click="submitAction('reject_non_essential')"
+                        >
+                            {{ labels.rejectNonEssential }}
+                        </button>
+                        <button
+                            type="button"
+                            class="lgpd-cookie-button lgpd-cookie-button--primary"
                             :disabled="processing"
                             @click="submitAction('accept_all')"
                         >
@@ -152,18 +156,32 @@ defineSlots<{
             aria-labelledby="lgpd-cookie-preferences-title"
         >
             <div class="lgpd-cookie-consent__panel">
-                <button
-                    class="lgpd-cookie-consent__close"
-                    type="button"
-                    :aria-label="labels.close"
-                    @click="closePreferences"
-                >
-                    ×
-                </button>
-                <h2 id="lgpd-cookie-preferences-title">
-                    {{ labels.preferencesTitle }}
-                </h2>
-                <p>{{ labels.preferencesDescription }}</p>
+                <header class="lgpd-cookie-consent__header">
+                    <h2 id="lgpd-cookie-preferences-title">
+                        {{ labels.preferencesTitle }}
+                    </h2>
+                    <p>{{ labels.preferencesDescription }}</p>
+                    <button
+                        class="lgpd-cookie-consent__close"
+                        type="button"
+                        :aria-label="labels.close"
+                        @click="closePreferences"
+                    >
+                        <svg
+                            viewBox="0 0 24 24"
+                            width="18"
+                            height="18"
+                            aria-hidden="true"
+                        >
+                            <path
+                                d="M6 6l12 12M18 6L6 18"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                            />
+                        </svg>
+                    </button>
+                </header>
 
                 <div class="lgpd-cookie-consent__categories">
                     <div
@@ -177,25 +195,34 @@ defineSlots<{
                             :enabled="categoryChoices[category.slug] === true"
                         >
                             <label>
+                                <span>
+                                    <strong>
+                                        {{ category.name }}
+                                        <em v-if="category.is_required">
+                                            {{ labels.alwaysActive }}
+                                        </em>
+                                    </strong>
+                                    <small>{{ category.description }}</small>
+                                </span>
                                 <input
                                     v-model="categoryChoices[category.slug]"
                                     type="checkbox"
+                                    role="switch"
                                     :disabled="
                                         category.is_required || processing
                                     "
                                 />
-                                <span>
-                                    <strong>{{ category.name }}</strong>
-                                    <small>{{ category.description }}</small>
-                                </span>
                             </label>
                         </slot>
                     </div>
                 </div>
 
-                <div class="lgpd-cookie-consent__actions">
+                <div
+                    class="lgpd-cookie-consent__actions lgpd-cookie-consent__actions--footer"
+                >
                     <button
                         type="button"
+                        class="lgpd-cookie-button lgpd-cookie-button--outline"
                         :disabled="processing"
                         @click="submitAction('reject_non_essential')"
                     >
@@ -208,6 +235,7 @@ defineSlots<{
                     >
                         <button
                             type="button"
+                            class="lgpd-cookie-button lgpd-cookie-button--primary"
                             :disabled="processing"
                             @click="saveCustom"
                         >
